@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipPrefab: {fileID: 489106470, guid: 2c490348bc569df40a6f72272e47c985, type: 3}
+  speed: 0.003
