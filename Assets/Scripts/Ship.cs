@@ -5,6 +5,14 @@ using UnityEngine;
 public class Ship : MonoBehaviour
 {
     Vector2 facingDirectionNormalized;
+    public GameObject bulletPrefab;
+
+    public void shoot() {
+        float distanceFromBullet = 0.1f;
+        Instantiate(bulletPrefab,
+            (Vector2)transform.position + facingDirectionNormalized * distanceFromBullet, 
+            transform.rotation);
+    }
 
     void Start()
     {

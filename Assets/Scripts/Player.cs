@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     Vector2 joystickDirectionNormalized;
     public GameObject fleetPrefab;
     GameObject playersFleet;
+    public void shootFromPlayersFleet() {
+        playersFleet.GetComponent<Fleet>().giveShipsShootOrder();
+    }
     // Start is called before the first frame update
     void Start()
     {
