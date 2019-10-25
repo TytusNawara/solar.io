@@ -7,15 +7,25 @@ public class Ship : MonoBehaviour
     Vector2 facingDirectionNormalized;
     public GameObject bulletPrefab;
 
+    int fleetID = -2;
+
     public void shoot() {
         float distanceFromBullet = 0.1f;
-        Instantiate(bulletPrefab,
-            (Vector2)transform.position + facingDirectionNormalized * distanceFromBullet, 
+        GameObject bullet = Instantiate(bulletPrefab,
+            (Vector2)transform.position + facingDirectionNormalized * distanceFromBullet,
             transform.rotation);
+        bullet.GetComponent<Bullet>().ID = fleetID;
     }
+
+    public int getID()
+    {
+        return fleetID;
+    }
+
 
     void Start()
     {
+        fleetID = transform.parent.gameObject.GetComponent<Fleet>().getID();
         facingDirectionNormalized = new Vector2(1, 0);
     }
 
@@ -34,5 +44,10 @@ public class Ship : MonoBehaviour
 
     public void faceShipInDirection(Vector2 direction) {
         facingDirectionNormalized = direction.normalized;
+    }
+
+    public void destroyShip() {
+        transform.parent.gameObject.GetComponent<Fleet>().removeShipFromList(gameObject);
+        Destroy(gameObject);
     }
 }

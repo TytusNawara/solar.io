@@ -305,7 +305,7 @@ PrefabInstance:
     - target: {fileID: 1129932129117299330, guid: a83beea73fb6ef440afdafdc15e2989b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.27
+      value: 4.4
       objectReference: {fileID: 0}
     - target: {fileID: 1129932129117299330, guid: a83beea73fb6ef440afdafdc15e2989b,
         type: 3}
@@ -664,6 +664,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: player
       objectReference: {fileID: 0}
+    - target: {fileID: 7914883740348401276, guid: 765d8a5b42999de40b219157002c95d0,
+        type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 64155914}
     - target: {fileID: 7914883740348401277, guid: 765d8a5b42999de40b219157002c95d0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -719,11 +724,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7914883740348401276, guid: 765d8a5b42999de40b219157002c95d0,
-        type: 3}
-      propertyPath: joystick
-      value: 
-      objectReference: {fileID: 64155914}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 765d8a5b42999de40b219157002c95d0, type: 3}
 --- !u!1 &1576690711

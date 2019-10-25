@@ -5,14 +5,14 @@ using UnityEngine;
 public class Fleet : MonoBehaviour
 {
     public GameObject shipPrefab;
-    float speed = 0.1f;
+    float speed = 0.02f;
     List<GameObject> ships = new List<GameObject>();
-    Vector2 range = new Vector2(5, 5);
+    Vector2 range = new Vector2(-0.25f, 0.25f);
     int shipsAtTheStart = 4;
     public bool _debug_FleetCanMove = true;
     Vector2 fleetFacingDirection = Vector2.up;
 
-    
+    int ID;
 
     public void faceFleetInDirection(Vector2 direction) {
         fleetFacingDirection = direction;
@@ -22,6 +22,13 @@ public class Fleet : MonoBehaviour
         foreach (var ship in ships) {
             ship.GetComponent<Ship>().shoot();
         }
+        //debug delete this below
+        addNewShipToFleet();
+    }
+
+    public int getID()
+    {
+        return ID;
     }
 
     void updateAllShipsRotation()
@@ -32,16 +39,22 @@ public class Fleet : MonoBehaviour
         }
     }
 
+    public void removeShipFromList(GameObject ship) {
+        ships.Remove(ship);
+    }
+
     void Start()
     {
+        ID = AutoIncrementedKeysGenerator.generateUniqueFleetID();
         for (int i = 0; i < shipsAtTheStart; i++)
             ships.Add(Instantiate(shipPrefab, 
-                new Vector2(Random.Range(-range.x, range.x), Random.Range(-range.y, range.y)),
+                (Vector2)transform.position + new Vector2(Random.Range(-range.x, range.x), Random.Range(-range.y, range.y)),
                 Quaternion.identity));
         foreach (var ship in ships) {
             ship.transform.parent = transform;
         }
     }
+ 
 
     // Update is called once per frame
     void Update()
@@ -65,5 +78,11 @@ public class Fleet : MonoBehaviour
         }
         if (_debug_FleetCanMove)//eut
             transform.position = (Vector2)transform.position + fleetFacingDirection.normalized * speed;
+    }
+
+    void addNewShipToFleet() {
+        ships.Add(Instantiate(shipPrefab,
+                (Vector2)transform.position + new Vector2(Random.Range(-range.x, range.x), Random.Range(-range.y, range.y)),
+                Quaternion.identity));
     }
 }
