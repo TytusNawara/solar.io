@@ -15,6 +15,8 @@ public class Ship : MonoBehaviour
             (Vector2)transform.position + facingDirectionNormalized * distanceFromBullet,
             transform.rotation);
         bullet.GetComponent<Bullet>().ID = fleetID;
+        bullet.GetComponent<Bullet>().setFleetThatBulletOrginatesFrom(transform.parent.gameObject);
+        
     }
 
     public int getID()

@@ -14,16 +14,22 @@ public class Fleet : MonoBehaviour
 
     int ID;
 
+    const float minTimePeriodBetweenShoots = 1f;
+    float timePassedSinceLastShoot = minTimePeriodBetweenShoots;
+
     public void faceFleetInDirection(Vector2 direction) {
         fleetFacingDirection = direction;
     }
 
     public void giveShipsShootOrder() {
-        foreach (var ship in ships) {
-            ship.GetComponent<Ship>().shoot();
+        if (timePassedSinceLastShoot >= minTimePeriodBetweenShoots) {
+            foreach (var ship in ships)
+            {
+                ship.GetComponent<Ship>().shoot();
+            }
+            timePassedSinceLastShoot = 0f;
         }
-        //debug delete this below
-        addNewShipToFleet();
+        
     }
 
     public int getID()
@@ -45,7 +51,7 @@ public class Fleet : MonoBehaviour
 
     void Start()
     {
-        ID = AutoIncrementedKeysGenerator.generateUniqueFleetID();
+        ID = gameObject.GetInstanceID();//AutoIncrementedKeysGenerator.generateUniqueFleetID();
         for (int i = 0; i < shipsAtTheStart; i++)
             ships.Add(Instantiate(shipPrefab, 
                 (Vector2)transform.position + new Vector2(Random.Range(-range.x, range.x), Random.Range(-range.y, range.y)),
@@ -55,11 +61,9 @@ public class Fleet : MonoBehaviour
         }
     }
  
-
-    // Update is called once per frame
     void Update()
     {
-        
+        timePassedSinceLastShoot += Time.deltaTime;
     }
     private void FixedUpdate()
     {
@@ -80,9 +84,13 @@ public class Fleet : MonoBehaviour
             transform.position = (Vector2)transform.position + fleetFacingDirection.normalized * speed;
     }
 
+    public void informFleetThatEnemyShipIsDown() {
+        addNewShipToFleet();
+    }
+
     void addNewShipToFleet() {
         ships.Add(Instantiate(shipPrefab,
                 (Vector2)transform.position + new Vector2(Random.Range(-range.x, range.x), Random.Range(-range.y, range.y)),
-                Quaternion.identity));
+                Quaternion.identity, transform));
     }
 }
