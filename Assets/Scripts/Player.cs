@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     {
         playersFleet = Instantiate(fleetPrefab, transform.position, Quaternion.identity);
         joystickDirectionNormalized = new Vector2(1, 0);
-
+        GameMenager.startGame();
     }
 
     // Update is called once per frame

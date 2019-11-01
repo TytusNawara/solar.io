@@ -59,6 +59,7 @@ public class Fleet : MonoBehaviour
         foreach (var ship in ships) {
             ship.transform.parent = transform;
         }
+        GameMenager.addFleetToGameMenager(gameObject);
     }
  
     void Update()
