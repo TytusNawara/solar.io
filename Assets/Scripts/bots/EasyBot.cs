@@ -8,15 +8,32 @@ public class EasyBot : BasicBot
     float minimalTimeThatNeedToPassBetweenDirectionChanges = 0.7f;
     float probabilityToChangeDirection = 1f;
 
+    float timeSinceBotShoot = 0f;
+    private float minTimeBetweenBotShots = 1.1f;
+
+  
+
     // Update is called once per frame
-    void Update()
+    protected new void Update()
     {
+        rotationSpeed = 400f;
         rotateFleetInDirectionThatBotChooses();
         timeSinceLastDirectionChange += Time.deltaTime;
+        timeSinceBotShoot += Time.deltaTime;
     }
 
     protected void FixedUpdate()
     {
+        if (timeSinceBotShoot > minTimeBetweenBotShots)
+        {
+            if (Random.Range(0, 100) < (timeSinceBotShoot - minTimeBetweenBotShots))
+            {
+                fleetThatBotControlls.GetComponent<Fleet>().giveShipsShootOrder();
+                timeSinceBotShoot = 0f;
+            }
+
+        }
+
         if (timeSinceLastDirectionChange > minimalTimeThatNeedToPassBetweenDirectionChanges) {
             if (Random.Range(0, 100f) <
                 (timeSinceLastDirectionChange - minimalTimeThatNeedToPassBetweenDirectionChanges) *

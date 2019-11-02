@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6982922855732185981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7739805184779311716}
+  - component: {fileID: 5706023856226050188}
+  m_Layer: 0
+  m_Name: SpritesMenager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7739805184779311716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6982922855732185981}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5805326, y: 3.4692435, z: -0.07755338}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5706023856226050188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6982922855732185981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ab6976eca460644a5ff3097e99b122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shipsSprites:
+  - {fileID: 21300000, guid: cafeb49c2cc326f4998c34e04edb3f1b, type: 3}
+  - {fileID: 21300000, guid: 0bf873d06fc322744aed9f01b601367b, type: 3}
+  - {fileID: 21300000, guid: fe7eba4cf382caf47871deab9a369dad, type: 3}
+  - {fileID: 21300000, guid: f456bc496cc03c14a815d31b80b580d7, type: 3}
+  - {fileID: 21300000, guid: e789a178dbaabde43b64b2aca4adb435, type: 3}
+  - {fileID: 21300000, guid: 15361ec8c58bf844baf2f948a9d25d06, type: 3}
+  - {fileID: 21300000, guid: 530d02f0e3df2934485a6ac00ce9c249, type: 3}
+  - {fileID: 21300000, guid: 66741132ddb970c4c8eb840d3d4ed574, type: 3}
+  - {fileID: 21300000, guid: 59b1622ca4c9e0846a229e5334305dec, type: 3}
+  - {fileID: 21300000, guid: 2e65002057f37cb48bafb1d94bfe79c3, type: 3}
+  - {fileID: 21300000, guid: 6c5ce54a850252d48a740bb13d009dcc, type: 3}
+  - {fileID: 21300000, guid: 0649ec6f836492848881c7ec3790526b, type: 3}
+  bulletSprites: []

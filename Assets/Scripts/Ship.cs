@@ -24,6 +24,12 @@ public class Ship : MonoBehaviour
         return fleetID;
     }
 
+    public void setSprite(Sprite sprite)
+    {
+        GetComponent<SpriteRenderer>().sprite = sprite;
+    }
+
+
 
     void Start()
     {

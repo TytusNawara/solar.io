@@ -11,6 +11,7 @@ public class Fleet : MonoBehaviour
     int shipsAtTheStart = 4;
     public bool _debug_FleetCanMove = true;
     Vector2 fleetFacingDirection = Vector2.up;
+    private Sprite shipSprite;
 
     int ID;
 
@@ -49,6 +50,17 @@ public class Fleet : MonoBehaviour
         ships.Remove(ship);
     }
 
+    void setAllShipsToRandomSprite()
+    {
+        var sMenager = GameObject.Find("SpriteMenager").GetComponent<SpriteMenager>();
+        shipSprite = sMenager.getSpriteFromIndex((int) Random
+                .Range(0, sMenager.getHowManyShipSpritesAreAvailable()));
+        foreach (var ship in ships)
+        {
+            ship.GetComponent<Ship>().setSprite(shipSprite);
+        }
+    }
+
     void Start()
     {
         ID = gameObject.GetInstanceID();//AutoIncrementedKeysGenerator.generateUniqueFleetID();
@@ -60,6 +72,7 @@ public class Fleet : MonoBehaviour
             ship.transform.parent = transform;
         }
         GameMenager.addFleetToGameMenager(gameObject);
+        setAllShipsToRandomSprite();
     }
  
     void Update()
@@ -89,9 +102,13 @@ public class Fleet : MonoBehaviour
         addNewShipToFleet();
     }
 
-    void addNewShipToFleet() {
-        ships.Add(Instantiate(shipPrefab,
-                (Vector2)transform.position + new Vector2(Random.Range(-range.x, range.x), Random.Range(-range.y, range.y)),
-                Quaternion.identity, transform));
+    void addNewShipToFleet()
+    {
+        GameObject toAdd = Instantiate(shipPrefab,
+            (Vector2) transform.position +
+            new Vector2(Random.Range(-range.x, range.x), Random.Range(-range.y, range.y)),
+            Quaternion.identity, transform);
+        toAdd.GetComponent<Ship>().setSprite(shipSprite);
+        ships.Add(toAdd);
     }
 }
