@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fleet : MonoBehaviour
 {
     public GameObject shipPrefab;
-    float speed = 0.02f;
+    private float speed = 0.02f;
     List<GameObject> ships = new List<GameObject>();
     Vector2 range = new Vector2(-0.25f, 0.25f);
     int shipsAtTheStart = 4;
