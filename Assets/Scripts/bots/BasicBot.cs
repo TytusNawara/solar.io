@@ -48,14 +48,7 @@ public class BasicBot : MonoBehaviour
     }
 
     protected void rotateFleetInDirectionThatBotChooses() {
-        //if (Vector2.Angle(directionToGoCalculatedByBot, directionAplayedToFleet) > 0.5f)
-        //{
-        //    directionAplayedToFleet = directionAplayedToFleet.Rotate(rotationSpeed * Time.deltaTime * randomRotationDirection);
-        //}
-        //else {
-        //    randomizeRotatingDirection();
-        //    directionAplayedToFleet = directionToGoCalculatedByBot;
-        //}
+
         if(Vector2.Angle(directionAplayedToFleet, directionToGoCalculatedByBot) > 3)
             directionAplayedToFleet = directionAplayedToFleet.Rotate(rotationSpeed * Time.deltaTime * randomRotationDirection);
         else
