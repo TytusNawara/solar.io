@@ -5,9 +5,9 @@ using UnityEngine;
 public static class GameMenager// : MonoBehaviour
 {
     static List<GameObject> allFleets = new List<GameObject>();
-    static float botsInstantiatingDistance = 50f;
-    static int mediumBotsAtTheStart =15;
-    static int ezBotsAtTheStart =30;
+    private static float botsInstantiatingDistance = 20f;//30f;
+    static int mediumBotsAtTheStart =10;
+    static int ezBotsAtTheStart =0;
 
     static string ezBot = "BotPrefabs/EasyBot";
     static string mediumBot = "BotPrefabs/MediumBot";
@@ -16,7 +16,9 @@ public static class GameMenager// : MonoBehaviour
         allFleets.Add(fleet);
     }
 
-    public static void startGame() {
+    public static void startGame()
+    {
+        Time.timeScale = 0.7f;//eut
         var botPrefab = (GameObject)Resources.Load(mediumBot, typeof(GameObject));
         for (int i = 0; i < mediumBotsAtTheStart; i++) {
             GameObject.Instantiate(botPrefab,

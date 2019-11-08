@@ -13,6 +13,8 @@ public class MediumDifficultyBot : BasicBot
     protected float timePassedSinceLastStateChange = 0f;
     protected float mediumTimeBetweenChangeState;
 
+    protected GameObject fleetScript; 
+
     protected enum State : int {
         MOVE_TOWARDS_TARGET = 0 ,
         ROTATE_AROUND_TARGET = 1,
@@ -128,10 +130,19 @@ public class MediumDifficultyBot : BasicBot
             if (result <= 0f)
             {
                 currentBotAction = (State)i;
-                Debug.Log(currentBotAction);
+//                Debug.Log(currentBotAction);
                 return;
             }
         }
+    }
+
+    void shootIfTargetInFrontOfBot()
+    {
+        float angel = Vector2.Angle(directionAplayedToFleet, targetedFleet.transform.position - transform.position);
+        if (Mathf.Abs(angel) < 2f)
+            fleetThatBotControlls.GetComponent<Fleet>().giveShipsShootOrder();
+       // Debug.Log(Mathf.Abs(angel));
+
     }
 
     protected void FixedUpdate()
@@ -151,7 +162,7 @@ public class MediumDifficultyBot : BasicBot
                 moveAwayFromTarget();
                 break;
         }
-        wanderRandomly();
+        shootIfTargetInFrontOfBot();
     }
 
     protected new void rotateFleetInDirectionThatBotChooses()

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     float speed = 8f;
-    float bulletLifeTime = 5f;
+    float bulletLifeTime = 2f;
     public int ID = -3;
     GameObject fleetThatBulletOrginatesFrom;
 
