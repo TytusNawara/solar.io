@@ -5,7 +5,7 @@ using UnityEngine;
 public class Fleet : MonoBehaviour
 {
     public GameObject shipPrefab;
-    private float speed = 0.08f;//0.04f;
+    private float speed = 0.08f*2f;//0.056f;//0.08f;
     List<GameObject> ships = new List<GameObject>();
     Vector2 range = new Vector2(-0.25f, 0.25f);
     int shipsAtTheStart = 4;
@@ -13,10 +13,11 @@ public class Fleet : MonoBehaviour
     Vector2 fleetFacingDirection = Vector2.up;
     private Sprite shipSprite;
     private float numberShipsToAdd = 0f;
+    private bool wereShipsInstantiated = false;
 
     int ID;
 
-    const float minTimePeriodBetweenShoots = 1f;
+    const float minTimePeriodBetweenShoots = 1f*0.7f;
     float timePassedSinceLastShoot = minTimePeriodBetweenShoots;
 
     public void faceFleetInDirection(Vector2 direction) {
@@ -25,6 +26,8 @@ public class Fleet : MonoBehaviour
 
     public int getHowManyShips()
     {
+        if (!wereShipsInstantiated)
+            return -1;
         return ships.Count;
     }
 
@@ -77,8 +80,11 @@ public class Fleet : MonoBehaviour
         foreach (var ship in ships) {
             ship.transform.parent = transform;
         }
+
+        wereShipsInstantiated = true;
         GameMenager.addFleetToGameMenager(gameObject);
         setAllShipsToRandomSprite();
+        
     }
  
     void Update()
@@ -98,7 +104,7 @@ public class Fleet : MonoBehaviour
                 rb.velocity = normalizeDirectionToCenter * 1;
             else
                 rb.velocity = Vector2.zero;
-           
+
         }
         if (_debug_FleetCanMove)//eut
             transform.position = (Vector2)transform.position + fleetFacingDirection.normalized * speed;

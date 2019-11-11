@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
         
         playersFleet.GetComponent<Fleet>().faceFleetInDirection(joystickDirectionNormalized);
         transform.position = playersFleet.transform.position;
+        if(playersFleet.GetComponent<Fleet>().getHowManyShips() ==0)
+            GameMenager.gameOver();
     }
    
 }

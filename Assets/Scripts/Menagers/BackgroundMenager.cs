@@ -29,11 +29,12 @@ public class BackgroundMenager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 positionNearCameraInGrid = cameraThatIsFollowedByBackground.transform.position;
+        Vector3 positionNearCameraInGrid = cameraThatIsFollowedByBackground.transform.position;
         positionNearCameraInGrid.x = positionNearCameraInGrid.x -
                                      positionNearCameraInGrid.x % offsetBetweenBackgounds;
         positionNearCameraInGrid.y = positionNearCameraInGrid.y -
                                      positionNearCameraInGrid.y % offsetBetweenBackgounds;
+        positionNearCameraInGrid.z = 1f;
         transform.position = positionNearCameraInGrid;
     }
 }

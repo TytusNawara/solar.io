@@ -48,6 +48,9 @@ public class Ship : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(Vector3.forward * (-angle));//TODO move to fixed update
 
+        if(transform.position.magnitude > 60f)
+            destroyShip();
+
     }
 
     public void faceShipInDirection(Vector2 direction) {

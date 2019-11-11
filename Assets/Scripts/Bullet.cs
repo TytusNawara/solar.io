@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    float speed = 8f;
-    float bulletLifeTime = 1f;
+    private float speed = 8f;//5.6f;//8f;
+    float bulletLifeTime = 1f*0.69f;
     public int ID = -3;
     GameObject fleetThatBulletOrginatesFrom;
 

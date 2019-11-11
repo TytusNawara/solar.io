@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class GameMenager// : MonoBehaviour
 {
@@ -23,7 +24,11 @@ public static class GameMenager// : MonoBehaviour
 
     public static void startGame()
     {
-        Time.timeScale = 0.7f;//eut
+        allFleets = new List<GameObject>();
+        allEzBots = new List<GameObject>();
+        allMediumBots = new List<GameObject>();
+
+        Time.timeScale = 0.7f;
         mediumBotPrefab = (GameObject)Resources.Load(mediumBot, typeof(GameObject));
         for (int i = 0; i < mediumBotsAtTheStart; i++) {
             spawnMediumBot();
@@ -83,5 +88,13 @@ public static class GameMenager// : MonoBehaviour
         {
             Debug.Log("error, tried to remove bot that is not at list, new bot was not spawned");
         }
+    }
+
+    public static void gameOver()
+    {
+        
+
+        SceneManager.LoadScene("SampleScene");
+
     }
 }
