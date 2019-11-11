@@ -57,6 +57,13 @@ public class MediumDifficultyBot : BasicBot
         directionToGoCalculatedByBot = -fromSelfToEnemy.normalized;
     }
 
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        targetClosestFleet();
+    }
+
     protected new void Start()
     {
         mediumTimeBetweenChangeState = Random.Range(4f, 8f);
@@ -64,6 +71,7 @@ public class MediumDifficultyBot : BasicBot
         instantiateFleet();
         //Debug.Log("Medium Deafaulty Bot was created");
         targetClosestFleet();
+        StartCoroutine(ExecuteAfterTime(0.01f));//loose fix to all bots targeting player
     }
 
     void calculateTimeBetweenNextTargetChange()
@@ -113,8 +121,9 @@ public class MediumDifficultyBot : BasicBot
             changeStateToRandomOne();
             timePassedSinceLastStateChange = 0f;
         }
+        informGameMenagerIfBotDied();
 
-        Debug.DrawLine(transform.position, targetedFleet.transform.position, Color.blue);
+        //Debug.DrawLine(transform.position, targetedFleet.transform.position, Color.blue);
     }
 
     protected void changeStateToRandomOne()
@@ -147,6 +156,8 @@ public class MediumDifficultyBot : BasicBot
 
     protected void FixedUpdate()
     {
+        if(targetedFleet == null)
+            targetClosestFleet();
         switch (currentBotAction)
         {
             case State.MOVE_TOWARDS_TARGET:

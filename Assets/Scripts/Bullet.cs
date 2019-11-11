@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     float speed = 8f;
-    float bulletLifeTime = 2f;
+    float bulletLifeTime = 1f;
     public int ID = -3;
     GameObject fleetThatBulletOrginatesFrom;
 
@@ -28,7 +28,8 @@ public class Bullet : MonoBehaviour
             if (ship.getID() != ID)
             {
                 ship.destroyShip();
-                fleetThatBulletOrginatesFrom.GetComponent<Fleet>().informFleetThatEnemyShipIsDown();
+                if(fleetThatBulletOrginatesFrom != null)
+                    fleetThatBulletOrginatesFrom.GetComponent<Fleet>().informFleetThatEnemyShipIsDown();
                 Destroy(gameObject);
             }
             else {

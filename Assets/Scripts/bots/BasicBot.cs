@@ -6,7 +6,7 @@ public class BasicBot : MonoBehaviour
 {
     public GameObject fleetPrefab;
     protected GameObject targetedFleet;
-    protected GameObject fleetThatBotControlls;
+    public GameObject fleetThatBotControlls;
 
     protected Vector2 directionToGoCalculatedByBot;
     //preventing snaping
@@ -60,6 +60,16 @@ public class BasicBot : MonoBehaviour
         fleetThatBotControlls.GetComponent<Fleet>().faceFleetInDirection(directionAplayedToFleet);
 
         
+    }
+
+    protected void informGameMenagerIfBotDied()
+    {
+        if (fleetThatBotControlls.GetComponent<Fleet>().getHowManyShips() <= 0)
+        {
+            GameMenager.removeBotAndRespawnNewOne(gameObject);
+            Destroy(fleetThatBotControlls);
+            Destroy(gameObject);
+        }
     }
 
     protected void Update()

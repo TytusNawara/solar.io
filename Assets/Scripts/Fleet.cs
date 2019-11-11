@@ -5,13 +5,14 @@ using UnityEngine;
 public class Fleet : MonoBehaviour
 {
     public GameObject shipPrefab;
-    private float speed = 0.04f;
+    private float speed = 0.08f;//0.04f;
     List<GameObject> ships = new List<GameObject>();
     Vector2 range = new Vector2(-0.25f, 0.25f);
     int shipsAtTheStart = 4;
     public bool _debug_FleetCanMove = true;
     Vector2 fleetFacingDirection = Vector2.up;
     private Sprite shipSprite;
+    private float numberShipsToAdd = 0f;
 
     int ID;
 
@@ -20,6 +21,11 @@ public class Fleet : MonoBehaviour
 
     public void faceFleetInDirection(Vector2 direction) {
         fleetFacingDirection = direction;
+    }
+
+    public int getHowManyShips()
+    {
+        return ships.Count;
     }
 
     public void giveShipsShootOrder() {
@@ -98,8 +104,26 @@ public class Fleet : MonoBehaviour
             transform.position = (Vector2)transform.position + fleetFacingDirection.normalized * speed;
     }
 
-    public void informFleetThatEnemyShipIsDown() {
-        addNewShipToFleet();
+    public void informFleetThatEnemyShipIsDown()
+    {
+        //to balance, also remove some ships from pull because 
+        //bot are respawning, creating new ones
+        float howManyPointsGot = 0f;
+        if (ships.Count < 9)
+            howManyPointsGot = 1f;
+        else
+        {
+            howManyPointsGot = 9f / ships.Count;
+        }
+
+        numberShipsToAdd += howManyPointsGot;
+        if (numberShipsToAdd >= 1)
+        {
+            addNewShipToFleet();
+            numberShipsToAdd--;
+        }
+
+        
     }
 
     void addNewShipToFleet()

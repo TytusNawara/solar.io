@@ -20,6 +20,7 @@ public class EasyBot : BasicBot
         rotateFleetInDirectionThatBotChooses();
         timeSinceLastDirectionChange += Time.deltaTime;
         timeSinceBotShoot += Time.deltaTime;
+        informGameMenagerIfBotDied();
     }
 
     protected void FixedUpdate()
