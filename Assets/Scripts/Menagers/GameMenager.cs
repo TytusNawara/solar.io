@@ -8,9 +8,18 @@ public static class GameMenager// : MonoBehaviour
     static List<GameObject> allFleets = new List<GameObject>();
     static List<GameObject> allEzBots = new List<GameObject>();
     static List<GameObject> allMediumBots = new List<GameObject>();
-    private static float botsInstantiatingDistance = 20f;//30f;
-    static int mediumBotsAtTheStart =30;
-    static int ezBotsAtTheStart =0;
+    private static float mapRadius = 40f;
+    private static Vector2 playerPosition;
+
+    public static float getMapRadius()
+    {
+        return mapRadius;
+    }
+
+    static int mediumBotsAtTheStart = 40;
+    static int ezBotsAtTheStart = 15;
+
+    static float timeBetweenShots = 1.2f;
 
     static string ezBot = "BotPrefabs/EasyBot";
     static string mediumBot = "BotPrefabs/MediumBot";
@@ -20,6 +29,10 @@ public static class GameMenager// : MonoBehaviour
 
     public static void addFleetToGameMenager(GameObject fleet) {
         allFleets.Add(fleet);
+    }
+
+    public static float getTimeBetweenShots() {
+        return timeBetweenShots;
     }
 
     public static void startGame()
@@ -44,8 +57,7 @@ public static class GameMenager// : MonoBehaviour
     static void spawnMediumBot()
     {
         GameObject go = GameObject.Instantiate(mediumBotPrefab,
-            new Vector2(Random.Range(-botsInstantiatingDistance, botsInstantiatingDistance),
-                Random.Range(-botsInstantiatingDistance, botsInstantiatingDistance)),
+            Random.insideUnitCircle * mapRadius * 0.95f,
             Quaternion.identity);
         allMediumBots.Add(go);
     }
@@ -53,8 +65,7 @@ public static class GameMenager// : MonoBehaviour
     static void spawnEzBot()
     {
         GameObject go = GameObject.Instantiate(ezBotPrefab,
-            new Vector2(Random.Range(-botsInstantiatingDistance, botsInstantiatingDistance),
-                Random.Range(-botsInstantiatingDistance, botsInstantiatingDistance)),
+            Random.insideUnitCircle * mapRadius * 0.95f,
             Quaternion.identity);
         allEzBots.Add(go);
     }
@@ -69,8 +80,8 @@ public static class GameMenager// : MonoBehaviour
     public static GameObject getFleetWithIndex(int index)
     {
         //if (index >= 0 && index < allFleets.Count)
-            return allFleets[index];
-       // return allFleets[0];
+        return allFleets[index];
+        // return allFleets[0];
     }
 
     public static void removeBotAndRespawnNewOne(GameObject bot)
@@ -80,14 +91,21 @@ public static class GameMenager// : MonoBehaviour
         if (allMediumBots.Remove(bot))
         {
             spawnMediumBot();
-        }else if (allEzBots.Remove(bot))
+        } else if (allEzBots.Remove(bot))
         {
             spawnEzBot();
         }
         else
         {
-            Debug.Log("error, tried to remove bot that is not at list, new bot was not spawned");
+            // Debug.Log("error, tried to remove bot that is not at list, new bot was not spawned");
         }
+    }
+    public static Vector2 getPlayerPosition() {
+        return playerPosition;
+    }
+
+    public static void setPlayerPostion(Vector2 _playerPosition) {
+        playerPosition = _playerPosition;
     }
 
     public static void gameOver()

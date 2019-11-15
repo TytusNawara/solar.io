@@ -17,8 +17,8 @@ public class Fleet : MonoBehaviour
 
     int ID;
 
-    const float minTimePeriodBetweenShoots = 1f*0.7f;
-    float timePassedSinceLastShoot = minTimePeriodBetweenShoots;
+    private float minTimePeriodBetweenShoots;
+    float timePassedSinceLastShoot;
 
     public void faceFleetInDirection(Vector2 direction) {
         fleetFacingDirection = direction;
@@ -72,6 +72,8 @@ public class Fleet : MonoBehaviour
 
     void Start()
     {
+        minTimePeriodBetweenShoots = GameMenager.getTimeBetweenShots();
+        timePassedSinceLastShoot = minTimePeriodBetweenShoots;
         ID = gameObject.GetInstanceID();//AutoIncrementedKeysGenerator.generateUniqueFleetID();
         for (int i = 0; i < shipsAtTheStart; i++)
             ships.Add(Instantiate(shipPrefab, 
@@ -115,11 +117,14 @@ public class Fleet : MonoBehaviour
         //to balance, also remove some ships from pull because 
         //bot are respawning, creating new ones
         float howManyPointsGot = 0f;
-        if (ships.Count < 9)
+        if (ships.Count < 3)
             howManyPointsGot = 1f;
-        else
+        else if (ships.Count < 14)
         {
-            howManyPointsGot = 9f / ships.Count;
+            howManyPointsGot = 3f / ships.Count;
+        }
+        else {
+            howManyPointsGot = 0.05f;
         }
 
         numberShipsToAdd += howManyPointsGot;

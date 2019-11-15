@@ -5,11 +5,11 @@ using UnityEngine;
 public class MapBorder : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float r = 60f;
+    private float r;
     void Start()
     {
         //var go1 = new GameObject { name = "Circle" };
-        
+        r = GameMenager.getMapRadius();
         gameObject.DrawCircle(r, 0.4f);
 
 

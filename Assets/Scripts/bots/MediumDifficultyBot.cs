@@ -7,7 +7,7 @@ using UnityEngine.Experimental.PlayerLoop;
 public class MediumDifficultyBot : BasicBot
 {
     protected float timePassedSinceLastTargetChange = 0f;
-    protected float mediumTimeBetweenChangeTarget = 6f;
+    protected float mediumTimeBetweenChangeTarget = 2.1f;
     protected float timeBetweenNextTargetChange;
 
     protected float timePassedSinceLastStateChange = 0f;
@@ -22,7 +22,7 @@ public class MediumDifficultyBot : BasicBot
         GO_AWAY_FROM_TARGET = 4
     };
 
-    protected float[] statesProbability = {2, 2, 1, 1};
+    protected float[] statesProbability = {3, 5, 1, 1};
 
     protected State currentBotAction = State.WANDER_RANDOMLY;
     protected float chanceToChangeDirectionWhenWandersRandomly;

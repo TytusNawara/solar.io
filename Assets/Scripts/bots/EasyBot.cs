@@ -5,11 +5,11 @@ using UnityEngine;
 public class EasyBot : BasicBot
 {
     float timeSinceLastDirectionChange = 0f;
-    float minimalTimeThatNeedToPassBetweenDirectionChanges = 0.7f;
+    float minimalTimeThatNeedToPassBetweenDirectionChanges = 0.4f;
     float probabilityToChangeDirection = 1f;
 
     float timeSinceBotShoot = 0f;
-    private float minTimeBetweenBotShots = 1.1f;
+    private float minTimeBetweenBotShots = 0.3f;
 
   
 

@@ -6,10 +6,13 @@ public class Ship : MonoBehaviour
 {
     Vector2 facingDirectionNormalized;
     public GameObject bulletPrefab;
-
+    private float deathDistance = GameMenager.getMapRadius();
+    private float distanceFromPlayerThatShipIsAllowedToShoot = 15f;
     int fleetID = -2;
 
     public void shoot() {
+        if (Vector2.Distance(transform.position, GameMenager.getPlayerPosition()) > distanceFromPlayerThatShipIsAllowedToShoot)
+            return;
         float distanceFromBullet = 0.1f;
         GameObject bullet = Instantiate(bulletPrefab,
             (Vector2)transform.position + facingDirectionNormalized * distanceFromBullet,
@@ -48,7 +51,7 @@ public class Ship : MonoBehaviour
         }
         transform.rotation = Quaternion.Euler(Vector3.forward * (-angle));//TODO move to fixed update
 
-        if(transform.position.magnitude > 60f)
+        if(transform.position.magnitude > deathDistance)
             destroyShip();
 
     }
