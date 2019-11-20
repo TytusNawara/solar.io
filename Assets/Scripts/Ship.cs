@@ -8,6 +8,11 @@ public class Ship : MonoBehaviour
     public GameObject bulletPrefab;
     private float deathDistance = GameMenager.getMapRadius();
     private float distanceFromPlayerThatShipIsAllowedToShoot = 15f;
+
+    private float distanceThatColiderIsDisabled = 19f;
+    private float distanceThatColiderIsEnabled = 17f;
+    private Collider2D circleCollider;
+
     int fleetID = -2;
 
     public void shoot() {
@@ -19,7 +24,7 @@ public class Ship : MonoBehaviour
             transform.rotation);
         bullet.GetComponent<Bullet>().ID = fleetID;
         bullet.GetComponent<Bullet>().setFleetThatBulletOrginatesFrom(transform.parent.gameObject);
-        
+
     }
 
     public int getID()
@@ -32,12 +37,23 @@ public class Ship : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = sprite;
     }
 
+    private void checkForDistanceAndMenageIfColliderEnabled() {
+        float dist = Vector2.Distance(transform.position, GameMenager.getPlayerPosition());
+        if (dist > distanceThatColiderIsDisabled)
+            circleCollider.enabled = false;
+        else if (dist < distanceThatColiderIsEnabled)
+            circleCollider.enabled = true;
+
+
+    }
+
 
 
     void Start()
     {
         fleetID = transform.parent.gameObject.GetComponent<Fleet>().getID();
         facingDirectionNormalized = new Vector2(1, 0);
+        circleCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -53,6 +69,8 @@ public class Ship : MonoBehaviour
 
         if(transform.position.magnitude > deathDistance)
             destroyShip();
+
+        checkForDistanceAndMenageIfColliderEnabled();
 
     }
 

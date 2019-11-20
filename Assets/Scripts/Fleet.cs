@@ -72,7 +72,7 @@ public class Fleet : MonoBehaviour
 
     void Start()
     {
-        minTimePeriodBetweenShoots = GameMenager.getTimeBetweenShots();
+        minTimePeriodBetweenShoots = GameMenager.getTimeBetweenShots()*0.6f;
         timePassedSinceLastShoot = minTimePeriodBetweenShoots;
         ID = gameObject.GetInstanceID();//AutoIncrementedKeysGenerator.generateUniqueFleetID();
         for (int i = 0; i < shipsAtTheStart; i++)
@@ -95,21 +95,26 @@ public class Fleet : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        updateAllShipsRotation();
-        foreach (var ship in ships)
-        {
-            Vector2 normalizeDirectionToCenter = (transform.position - ship.transform.position).normalized;
-            //Debug.DrawRay(ship.transform.position, normalizeDirectionToCenter, Color.red);
-            
-            Rigidbody2D rb = ship.GetComponent<Rigidbody2D>();
-            if ((transform.position - ship.transform.position).magnitude > 0.01f)
-                rb.velocity = normalizeDirectionToCenter * 1;
-            else
-                rb.velocity = Vector2.zero;
+        
+            updateAllShipsRotation();
+            foreach (var ship in ships)
+            {
+                Vector2 normalizeDirectionToCenter = (transform.position - ship.transform.position).normalized;
+                //Debug.DrawRay(ship.transform.position, normalizeDirectionToCenter, Color.red);
 
-        }
-        if (_debug_FleetCanMove)//eut
-            transform.position = (Vector2)transform.position + fleetFacingDirection.normalized * speed;
+                Rigidbody2D rb = ship.GetComponent<Rigidbody2D>();
+                if ((transform.position - ship.transform.position).magnitude > 0.01f)
+                    rb.velocity = normalizeDirectionToCenter * 1;
+                else
+                    rb.velocity = Vector2.zero;
+
+            }
+       
+            if (_debug_FleetCanMove &&
+                Vector2.Distance(transform.position, GameMenager.getPlayerPosition()) <
+        GameMenager.getPositionFreezingDistance())//eut
+                transform.position = (Vector2)transform.position + fleetFacingDirection.normalized * speed;
+        
     }
 
     public void informFleetThatEnemyShipIsDown()

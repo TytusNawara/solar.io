@@ -11,9 +11,16 @@ public static class GameMenager// : MonoBehaviour
     private static float mapRadius = 40f;
     private static Vector2 playerPosition;
 
+    private static float distanceFromPlayerWhenBotFreezesPosition = 20f;
+
     public static float getMapRadius()
     {
         return mapRadius;
+    }
+
+    public static float getPositionFreezingDistance()
+    {
+        return distanceFromPlayerWhenBotFreezesPosition;
     }
 
     static int mediumBotsAtTheStart = 40;

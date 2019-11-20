@@ -35,6 +35,7 @@ public class BackgroundMenager : MonoBehaviour
         positionNearCameraInGrid.y = positionNearCameraInGrid.y -
                                      positionNearCameraInGrid.y % offsetBetweenBackgounds;
         positionNearCameraInGrid.z = 1f;
+        if(transform.position != positionNearCameraInGrid)
         transform.position = positionNearCameraInGrid;
     }
 }
