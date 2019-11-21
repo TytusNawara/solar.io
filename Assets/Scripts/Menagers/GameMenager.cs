@@ -10,8 +10,8 @@ public static class GameMenager// : MonoBehaviour
     static List<GameObject> allMediumBots = new List<GameObject>();
     private static float mapRadius = 40f;
     private static Vector2 playerPosition;
-
-    private static float distanceFromPlayerWhenBotFreezesPosition = 20f;
+    //TODO if performence allows it can be inreaset, it will give more bots next to player, as they wont be waiting
+    private static float distanceFromPlayerWhenBotFreezesPosition = 30f;
 
     public static float getMapRadius()
     {
