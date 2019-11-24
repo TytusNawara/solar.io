@@ -5,6 +5,8 @@ using UnityEngine;
 public class Fleet : MonoBehaviour
 {
     public GameObject shipPrefab;
+    public GameObject canvasPrefab;
+
     private float speed = 0.08f*2f;//0.056f;//0.08f;
     List<GameObject> ships = new List<GameObject>();
     Vector2 range = new Vector2(-0.25f, 0.25f);
@@ -19,6 +21,8 @@ public class Fleet : MonoBehaviour
 
     private float minTimePeriodBetweenShoots;
     float timePassedSinceLastShoot;
+
+    private float distnceToText = 1.7f;
 
     public void faceFleetInDirection(Vector2 direction) {
         fleetFacingDirection = direction;
@@ -86,6 +90,10 @@ public class Fleet : MonoBehaviour
         wereShipsInstantiated = true;
         GameMenager.addFleetToGameMenager(gameObject);
         setAllShipsToRandomSprite();
+
+        Vector3 pos = transform.position;
+        pos.y += distnceToText;
+        Instantiate(canvasPrefab, pos, Quaternion.identity, transform);
         
     }
  

@@ -34,6 +34,8 @@ public static class GameMenager// : MonoBehaviour
     private static GameObject ezBotPrefab;
     private static GameObject mediumBotPrefab;
 
+    private static Scoreboard scoreboardScript;
+
     public static void addFleetToGameMenager(GameObject fleet) {
         allFleets.Add(fleet);
     }
@@ -44,6 +46,8 @@ public static class GameMenager// : MonoBehaviour
 
     public static void startGame()
     {
+        scoreboardScript = GameObject.Find("Scoreboard").GetComponent<Scoreboard>();
+
         allFleets = new List<GameObject>();
         allEzBots = new List<GameObject>();
         allMediumBots = new List<GameObject>();
@@ -59,6 +63,14 @@ public static class GameMenager// : MonoBehaviour
         {
             spawnEzBot();
         }
+
+        string[,] table = new string[2, 5];//{ { "nick1", "1" }, { "nick2", "2"}, { "nick3", "3" }, { "nick4", "4" }, { "nick5", "5" } };
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 5; j++) {
+                table[i, j] = j.ToString();
+            }
+        }
+        scoreboardScript.changeValuesOnScoreUI(table);
     }
 
     static void spawnMediumBot()
