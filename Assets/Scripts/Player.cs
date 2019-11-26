@@ -16,7 +16,15 @@ public class Player : MonoBehaviour
     {
         playersFleet = Instantiate(fleetPrefab, transform.position, Quaternion.identity);
         joystickDirectionNormalized = new Vector2(1, 0);
+
+        Fleet fleet = playersFleet.GetComponent<Fleet>();
+        //fleet.changeNickname("asdf");
+
+        GameMenager.setPlayerFleetID(fleet.getID());
+        
         GameMenager.startGame();
+
+        GameMenager.remapPlayerNickname(fleet);
     }
 
     // Update is called once per frame

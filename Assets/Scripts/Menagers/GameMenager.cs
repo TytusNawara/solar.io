@@ -8,10 +8,21 @@ public static class GameMenager// : MonoBehaviour
     static List<GameObject> allFleets = new List<GameObject>();
     static List<GameObject> allEzBots = new List<GameObject>();
     static List<GameObject> allMediumBots = new List<GameObject>();
+
+    static Dictionary<int, string> nicknamesMap;
+
+    private static int playerFleetID;
+
     private static float mapRadius = 40f;
     private static Vector2 playerPosition;
     //TODO if performence allows it can be inreaset, it will give more bots next to player, as they wont be waiting
     private static float distanceFromPlayerWhenBotFreezesPosition = 30f;
+
+    static string[] allNicknames;
+    static int nicknameArrayIndex = 0;
+
+
+    static int deafultName;
 
     public static float getMapRadius()
     {
@@ -21,6 +32,10 @@ public static class GameMenager// : MonoBehaviour
     public static float getPositionFreezingDistance()
     {
         return distanceFromPlayerWhenBotFreezesPosition;
+    }
+
+    public static void setPlayerFleetID(int id) {
+        playerFleetID = id;
     }
 
     static int mediumBotsAtTheStart = 40;
@@ -46,6 +61,9 @@ public static class GameMenager// : MonoBehaviour
 
     public static void startGame()
     {
+        nicknamesMap = new Dictionary<int, string>();
+        deafultName = Random.Range(1001, 9998);
+
         scoreboardScript = GameObject.Find("Scoreboard").GetComponent<Scoreboard>();
 
         allFleets = new List<GameObject>();
@@ -71,6 +89,20 @@ public static class GameMenager// : MonoBehaviour
             }
         }
         scoreboardScript.changeValuesOnScoreUI(table);
+
+        readNicknamesFromFile();
+
+    }
+
+    private static void readNicknamesFromFile() {
+        if (allNicknames != null)
+            return;
+
+        TextAsset asset = (TextAsset)Resources.Load("1000nicknames");
+
+        allNicknames = asset.text.ToString().Split(
+        new[] { System.Environment.NewLine },
+         System.StringSplitOptions.None);
     }
 
     static void spawnMediumBot()
@@ -79,6 +111,24 @@ public static class GameMenager// : MonoBehaviour
             Random.insideUnitCircle * mapRadius * 0.95f,
             Quaternion.identity);
         allMediumBots.Add(go);
+
+        
+    }
+
+    public static void remapPlayerNickname(Fleet playerFleet) {
+        string nick = "To ja";
+        nicknamesMap[playerFleet.getID()] = nick;
+        playerFleet.changeNickname(nick);
+    }
+
+    public static void getNicknameForMe(Fleet fleet) {
+        string nick = "";
+        if (Random.Range(0f, 1f) > 0.4f)
+            nick = getRandomNicknameFromPull();
+        else
+            nick = getRandomDeafultNickname();
+        nicknamesMap[fleet.getID()] = nick;
+        fleet.changeNickname(nick);
     }
 
     static void spawnEzBot()
@@ -125,6 +175,23 @@ public static class GameMenager// : MonoBehaviour
 
     public static void setPlayerPostion(Vector2 _playerPosition) {
         playerPosition = _playerPosition;
+    }
+
+    private static string getRandomNicknameFromPull() {
+        nicknameArrayIndex += (int)Random.Range(3, 17);
+        if (nicknameArrayIndex > allNicknames.Length - 1) {
+            nicknameArrayIndex = 0;
+        }
+        return allNicknames[nicknameArrayIndex];
+    }
+
+    private static string getRandomDeafultNickname()
+    {
+        // 197 prime number
+        deafultName += 197;
+        if (deafultName > 9999)
+            deafultName -= 9000;
+        return "Player#" + deafultName.ToString();
     }
 
     public static void gameOver()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fleet : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class Fleet : MonoBehaviour
     private Sprite shipSprite;
     private float numberShipsToAdd = 0f;
     private bool wereShipsInstantiated = false;
+
+    private Text textWithNickname;
+    private string playerNameIfExist = "";
 
     int ID;
 
@@ -93,13 +97,22 @@ public class Fleet : MonoBehaviour
 
         Vector3 pos = transform.position;
         pos.y += distnceToText;
-        Instantiate(canvasPrefab, pos, Quaternion.identity, transform);
+
+        GameObject canvas = Instantiate(canvasPrefab, pos, Quaternion.identity, transform);
+        Transform nick = canvas.GetComponent<Transform>().Find("nickname");
+        GameObject a = nick.gameObject;
+        textWithNickname = nick.GetComponent<Text>();
         
+        GameMenager.getNicknameForMe(this);
     }
- 
+
     void Update()
     {
         timePassedSinceLastShoot += Time.deltaTime;
+        if (playerNameIfExist != "") {
+            changeNickname(playerNameIfExist);
+            playerNameIfExist = "";
+        }
     }
     private void FixedUpdate()
     {
@@ -148,6 +161,14 @@ public class Fleet : MonoBehaviour
         }
 
         
+    }
+
+    public void changeNickname(string nick) {
+        if (textWithNickname == null) {
+            playerNameIfExist = nick;
+            return;
+        }
+        textWithNickname.text = nick;
     }
 
     void addNewShipToFleet()
