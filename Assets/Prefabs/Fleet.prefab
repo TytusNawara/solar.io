@@ -46,4 +46,5 @@ MonoBehaviour:
   shipPrefab: {fileID: 489106470, guid: 2c490348bc569df40a6f72272e47c985, type: 3}
   canvasPrefab: {fileID: 7179813011150900792, guid: 700dff80fc5b6fa46bb1ed6366caad9a,
     type: 3}
+  playerNickameColor: {r: 0.76862746, g: 0.5294118, b: 0.7372549, a: 0}
   _debug_FleetCanMove: 1

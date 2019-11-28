@@ -43,8 +43,6 @@ public class Ship : MonoBehaviour
             circleCollider.enabled = false;
         else if (dist < distanceThatColiderIsEnabled)
             circleCollider.enabled = true;
-
-
     }
 
 

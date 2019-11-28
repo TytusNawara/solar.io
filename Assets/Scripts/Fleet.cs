@@ -15,8 +15,14 @@ public class Fleet : MonoBehaviour
     public bool _debug_FleetCanMove = true;
     Vector2 fleetFacingDirection = Vector2.up;
     private Sprite shipSprite;
+    private GameObject canvas;
     private float numberShipsToAdd = 0f;
     private bool wereShipsInstantiated = false;
+
+    float distanceWhereNicknameIsDisabled;
+    float distanceWhereNicknameIsEnabled;
+    bool isTextEnabled = true;
+
 
     private Text textWithNickname;
     private string playerNameIfExist = "";
@@ -80,6 +86,10 @@ public class Fleet : MonoBehaviour
 
     void Start()
     {
+        
+
+        distanceWhereNicknameIsDisabled = 16f;
+        distanceWhereNicknameIsEnabled = distanceWhereNicknameIsDisabled - 2f;
         minTimePeriodBetweenShoots = GameMenager.getTimeBetweenShots()*0.6f;
         timePassedSinceLastShoot = minTimePeriodBetweenShoots;
         ID = gameObject.GetInstanceID();//AutoIncrementedKeysGenerator.generateUniqueFleetID();
@@ -98,7 +108,7 @@ public class Fleet : MonoBehaviour
         Vector3 pos = transform.position;
         pos.y += distnceToText;
 
-        GameObject canvas = Instantiate(canvasPrefab, pos, Quaternion.identity, transform);
+        canvas = Instantiate(canvasPrefab, pos, Quaternion.identity, transform);
         Transform nick = canvas.GetComponent<Transform>().Find("nickname");
         GameObject a = nick.gameObject;
         textWithNickname = nick.GetComponent<Text>();
@@ -112,11 +122,14 @@ public class Fleet : MonoBehaviour
         if (playerNameIfExist != "") {
             changeNickname(playerNameIfExist);
             playerNameIfExist = "";
+            Color color = Color.red;
+            ColorUtility.TryParseHtmlString("#c487bc", out color);
+            textWithNickname.color = color;
         }
+        checkForDistanceAndMenageIfCanvasEnabled();
     }
     private void FixedUpdate()
     {
-        
             updateAllShipsRotation();
             foreach (var ship in ships)
             {
@@ -179,5 +192,24 @@ public class Fleet : MonoBehaviour
             Quaternion.identity, transform);
         toAdd.GetComponent<Ship>().setSprite(shipSprite);
         ships.Add(toAdd);
+    }
+
+    private void checkForDistanceAndMenageIfCanvasEnabled()
+    {
+        float dist = Vector2.Distance(transform.position, GameMenager.getPlayerPosition());
+        if (dist > distanceWhereNicknameIsDisabled)
+        {
+            Debug.DrawLine(transform.position, GameMenager.getPlayerPosition(), Color.red);
+
+            canvas.SetActive(false);
+        }
+
+        else if (dist < distanceWhereNicknameIsEnabled)
+        {
+            Debug.DrawLine(transform.position, GameMenager.getPlayerPosition());
+
+            canvas.SetActive(true);
+        }
+
     }
 }
