@@ -20,19 +20,25 @@ public class Player : MonoBehaviour
         Fleet fleet = playersFleet.GetComponent<Fleet>();
         //fleet.changeNickname("asdf");
 
-        GameMenager.setPlayerFleetID(fleet.getID());
-        
+      
+
         GameMenager.startGame();
 
+        GameMenager.setPlayerFleetID(fleet.getID());
         GameMenager.remapPlayerNickname(fleet);
+
+
     }
 
     // Update is called once per frame
+    
     void Update()
     {
         if(joystick.Direction.magnitude > 0)
             joystickDirectionNormalized = joystick.Direction.normalized;
-     
+
+            GameMenager.refreshScoreboard();//eut
+        
         //Vector2 lookDirection = (Vector2)transform.position + joystick.Direction.normalized;
         //transform.rotation = Quaternion.LookRotation(lookDirection, Vector3.forward);
         //Vector3 point = new Vector3(5, 0, 0);

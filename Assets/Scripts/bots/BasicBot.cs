@@ -36,7 +36,8 @@ public class BasicBot : MonoBehaviour
         transform.parent = fleetThatBotControlls.transform;
         for (int i = 0; i < 5; i++)
         {
-            fleetThatBotControlls.GetComponent<Fleet>().informFleetThatEnemyShipIsDown();//debug eut this
+            if (Random.Range(0f, 1f) > 0.5f);
+                fleetThatBotControlls.GetComponent<Fleet>().addNewShipToFleet();
         }
         directionToGoCalculatedByBot = Random.insideUnitCircle.normalized;//eut
         directionAplayedToFleet = directionToGoCalculatedByBot;

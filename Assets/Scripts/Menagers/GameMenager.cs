@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public static class GameMenager// : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public static class GameMenager// : MonoBehaviour
     static List<GameObject> allMediumBots = new List<GameObject>();
 
     static Dictionary<int, string> nicknamesMap;
+    static Dictionary<int, int> scoresMap;
 
     private static int playerFleetID;
 
@@ -62,6 +64,8 @@ public static class GameMenager// : MonoBehaviour
     public static void startGame()
     {
         nicknamesMap = new Dictionary<int, string>();
+        scoresMap = new Dictionary<int, int>();
+
         deafultName = Random.Range(1001, 9998);
 
         scoreboardScript = GameObject.Find("Scoreboard").GetComponent<Scoreboard>();
@@ -118,6 +122,8 @@ public static class GameMenager// : MonoBehaviour
     public static void remapPlayerNickname(Fleet playerFleet) {
         string nick = "To ja";
         nicknamesMap[playerFleet.getID()] = nick;
+        scoresMap[playerFleet.getID()] = 1000;//TODO change to 0
+
         playerFleet.changeNickname(nick);
     }
 
@@ -128,7 +134,71 @@ public static class GameMenager// : MonoBehaviour
         else
             nick = getRandomDeafultNickname();
         nicknamesMap[fleet.getID()] = nick;
+        int initialScore = Random.Range(0, 10);
+        for (int i = 0; i < 5; i++) {
+            if (Random.Range(0f, 1f) > 0.7f)
+            {
+                initialScore += Random.Range(10, 30);
+            }
+            else {
+                break;
+            }
+        }
+
+        scoresMap[fleet.getID()] = initialScore;
         fleet.changeNickname(nick);
+    }
+
+    public static void increaseScoreBy(int id, int score) {
+        int value = 0; 
+        scoresMap.TryGetValue(id, out value);
+        value += score;
+        scoresMap[id] = value;
+        //eut
+        string a = "broken";
+        nicknamesMap.TryGetValue(id, out a);
+
+        Debug.Log(a + "   " +"final score: "+ value+" how much we incremented: " + s);
+    }
+
+    public static void refreshScoreboard() {
+        
+
+        List<KeyValuePair<int, int>> sortedScores = scoresMap.ToList();
+
+        sortedScores.Sort(
+            delegate (KeyValuePair<int, int> pair1,
+            KeyValuePair<int, int> pair2)
+            {
+                return (-1) *pair1.Value.CompareTo(pair2.Value);
+            }
+        );
+        //Debug.Log("sorted scores");
+        //foreach (var i in sortedScores) {
+           // Debug.Log(i.Key + "   " + i.Value);
+       // }
+
+        string[,] table = new string[2, 5];//{ { "nick1", "1" }, { "nick2", "2"}, { "nick3", "3" }, { "nick4", "4" }, { "nick5", "5" } };
+
+        for (int i = 0; i < 5; i++)
+        {
+            string nick = "Deafault";
+            int score = -1;
+            try
+            {
+                nicknamesMap.TryGetValue(sortedScores[i].Key, out nick);
+                score = sortedScores[i].Value;
+            }
+            catch (System.ArgumentOutOfRangeException e) {
+                return;
+            }
+            
+
+            table[0, i] = nick;
+            table[1, i] = score.ToString();
+        }
+       
+        scoreboardScript.changeValuesOnScoreUI(table);
     }
 
     static void spawnEzBot()

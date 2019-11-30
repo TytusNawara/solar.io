@@ -86,7 +86,7 @@ public class Fleet : MonoBehaviour
 
     void Start()
     {
-        
+        ID = this.GetInstanceID();///eut
 
         distanceWhereNicknameIsDisabled = 16f;
         distanceWhereNicknameIsEnabled = distanceWhereNicknameIsDisabled - 2f;
@@ -125,6 +125,8 @@ public class Fleet : MonoBehaviour
             Color color = Color.red;
             ColorUtility.TryParseHtmlString("#c487bc", out color);
             textWithNickname.color = color;
+
+            
         }
         checkForDistanceAndMenageIfCanvasEnabled();
     }
@@ -172,7 +174,7 @@ public class Fleet : MonoBehaviour
             addNewShipToFleet();
             numberShipsToAdd--;
         }
-
+        GameMenager.increaseScoreBy(ID, 1);
         
     }
 
@@ -184,7 +186,7 @@ public class Fleet : MonoBehaviour
         textWithNickname.text = nick;
     }
 
-    void addNewShipToFleet()
+    public void addNewShipToFleet()
     {
         GameObject toAdd = Instantiate(shipPrefab,
             (Vector2) transform.position +
