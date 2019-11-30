@@ -6,6 +6,8 @@ using System.Linq;
 
 public static class GameMenager// : MonoBehaviour
 {
+    public const string interfaceColor = "#c487bc";
+    public static string playerNickname = "Player#4729";
     static List<GameObject> allFleets = new List<GameObject>();
     static List<GameObject> allEzBots = new List<GameObject>();
     static List<GameObject> allMediumBots = new List<GameObject>();
@@ -118,8 +120,7 @@ public static class GameMenager// : MonoBehaviour
     }
 
     public static void remapPlayerNickname(Fleet playerFleet) {
-        string nick = "To ja";
-        nicknamesMap[playerFleet.getID()] = nick;
+        nicknamesMap[playerFleet.getID()] = playerNickname;
         scoresMap[playerFleet.getID()] = 0;
         //playerFleetID = playerFleet.getID();
         //TODO delete from scores with nickname 0
@@ -127,7 +128,7 @@ public static class GameMenager// : MonoBehaviour
         scoresMap.Remove(0);
         playerFleetID = playerFleet.getID();
 
-        playerFleet.changeNickname(nick);
+        playerFleet.changeNickname(playerNickname);
     }
 
     public static void getNicknameForMe(Fleet fleet) {
@@ -276,7 +277,7 @@ public static class GameMenager// : MonoBehaviour
 
     public static void gameOver()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(0);
 
     }
 }
