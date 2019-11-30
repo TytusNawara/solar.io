@@ -123,6 +123,11 @@ public static class GameMenager// : MonoBehaviour
         string nick = "To ja";
         nicknamesMap[playerFleet.getID()] = nick;
         scoresMap[playerFleet.getID()] = 1000;//TODO change to 0
+        //playerFleetID = playerFleet.getID();
+        //TODO delete from scores with nickname 0
+        nicknamesMap.Remove(0);
+        scoresMap.Remove(0);
+
 
         playerFleet.changeNickname(nick);
     }
@@ -158,7 +163,8 @@ public static class GameMenager// : MonoBehaviour
         string a = "broken";
         nicknamesMap.TryGetValue(id, out a);
 
-        Debug.Log(a + "   " +"final score: "+ value+" how much we incremented: " + s);
+       Debug.Log(id + "   " +"final score: "+ value+" how much we incremented: " );
+        Debug.Log(playerFleetID);
     }
 
     public static void refreshScoreboard() {

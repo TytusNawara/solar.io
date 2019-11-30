@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
     public void shootFromPlayersFleet() {
         playersFleet.GetComponent<Fleet>().giveShipsShootOrder();
     }
+
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -25,13 +27,14 @@ public class Player : MonoBehaviour
         GameMenager.startGame();
 
         GameMenager.setPlayerFleetID(fleet.getID());
-        GameMenager.remapPlayerNickname(fleet);
+        //GameMenager.remapPlayerNickname(fleet);
 
 
     }
+   
 
     // Update is called once per frame
-    
+
     void Update()
     {
         if(joystick.Direction.magnitude > 0)

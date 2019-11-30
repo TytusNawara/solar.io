@@ -126,7 +126,7 @@ public class Fleet : MonoBehaviour
             ColorUtility.TryParseHtmlString("#c487bc", out color);
             textWithNickname.color = color;
 
-            
+            GameMenager.remapPlayerNickname(this);//eut
         }
         checkForDistanceAndMenageIfCanvasEnabled();
     }
