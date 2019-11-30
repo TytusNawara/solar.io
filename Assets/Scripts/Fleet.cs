@@ -139,7 +139,7 @@ public class Fleet : MonoBehaviour
                 //Debug.DrawRay(ship.transform.position, normalizeDirectionToCenter, Color.red);
 
                 Rigidbody2D rb = ship.GetComponent<Rigidbody2D>();
-                if ((transform.position - ship.transform.position).magnitude > 0.01f)
+                if ((transform.position - ship.transform.position).magnitude > 0.04f)
                     rb.velocity = normalizeDirectionToCenter * 1;
                 else
                     rb.velocity = Vector2.zero;

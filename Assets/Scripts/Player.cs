@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
         GameMenager.startGame();
 
         GameMenager.setPlayerFleetID(fleet.getID());
-        //GameMenager.remapPlayerNickname(fleet);
+        GameMenager.remapPlayerNickname(fleet);
 
 
     }

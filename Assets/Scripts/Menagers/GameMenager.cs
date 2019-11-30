@@ -115,19 +115,17 @@ public static class GameMenager// : MonoBehaviour
             Random.insideUnitCircle * mapRadius * 0.95f,
             Quaternion.identity);
         allMediumBots.Add(go);
-
-        
     }
 
     public static void remapPlayerNickname(Fleet playerFleet) {
         string nick = "To ja";
         nicknamesMap[playerFleet.getID()] = nick;
-        scoresMap[playerFleet.getID()] = 1000;//TODO change to 0
+        scoresMap[playerFleet.getID()] = 0;
         //playerFleetID = playerFleet.getID();
         //TODO delete from scores with nickname 0
         nicknamesMap.Remove(0);
         scoresMap.Remove(0);
-
+        playerFleetID = playerFleet.getID();
 
         playerFleet.changeNickname(nick);
     }
@@ -270,10 +268,14 @@ public static class GameMenager// : MonoBehaviour
         return "Player#" + deafultName.ToString();
     }
 
+    public static int getPlayerScore() {
+        int toReturn = 0;
+        scoresMap.TryGetValue(playerFleetID, out toReturn);
+        return toReturn;
+    }
+
     public static void gameOver()
     {
-        
-
         SceneManager.LoadScene("SampleScene");
 
     }
