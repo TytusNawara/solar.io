@@ -43,7 +43,10 @@ public class NicknameEdit : MonoBehaviour
         inputField.text = nick;
 
         inputField.onEndEdit.AddListener(delegate{ endEdit(inputField); });
+        endEdit(inputField);
     }
+
+   
 
     
 }

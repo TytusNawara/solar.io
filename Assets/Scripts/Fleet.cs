@@ -21,7 +21,7 @@ public class Fleet : MonoBehaviour
 
     float distanceWhereNicknameIsDisabled;
     float distanceWhereNicknameIsEnabled;
-    bool isTextEnabled = true;
+
 
 
     private Text textWithNickname;

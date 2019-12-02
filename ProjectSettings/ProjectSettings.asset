@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: rolp7850
-  productName: ships.io
+  companyName: Rolp
+  productName: solar.io
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -148,7 +148,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.rolp7850.ships.io
+    Android: com.Rolp.solar.io
     Standalone: com.Company.ProductName
   buildNumber: {}
   AndroidBundleVersionCode: 1

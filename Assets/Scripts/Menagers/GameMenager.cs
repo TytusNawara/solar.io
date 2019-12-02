@@ -140,9 +140,9 @@ public static class GameMenager// : MonoBehaviour
         nicknamesMap[fleet.getID()] = nick;
         int initialScore = Random.Range(0, 10);
         for (int i = 0; i < 5; i++) {
-            if (Random.Range(0f, 1f) > 0.7f)
+            if (Random.Range(0f, 1f) > 0.8f)
             {
-                initialScore += Random.Range(10, 30);
+                initialScore += Random.Range(0, 1000);
             }
             else {
                 break;
@@ -158,12 +158,6 @@ public static class GameMenager// : MonoBehaviour
         scoresMap.TryGetValue(id, out value);
         value += score;
         scoresMap[id] = value;
-        //eut
-        string a = "broken";
-        nicknamesMap.TryGetValue(id, out a);
-
-       Debug.Log(id + "   " +"final score: "+ value+" how much we incremented: " );
-        Debug.Log(playerFleetID);
     }
 
     public static void refreshScoreboard() {
